@@ -33,6 +33,12 @@
 
 ## 🚀 Usage
 
+First, make sure the script is executable:
+
+```bash
+chmod +x auto-wp.sh
+````
+
 ### Create a new instance
 
 ```bash
