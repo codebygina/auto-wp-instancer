@@ -1,2 +1,97 @@
-# auto-wp-instancer
-CLI tool to spin up isolated WordPress instances in WSL2 using Docker
+# 🚀 Auto WordPress Instance Creator
+
+**Auto-WP** is a lightweight CLI tool that spins up isolated WordPress environments using Docker inside WSL2. Perfect for developers, theme builders, and plugin testers who want fast, disposable WordPress instances with zero setup hassle.
+
+---
+
+## ✨ Features
+
+- 🔧 One-command WordPress setup
+- 🐘 MySQL 8.0 + WordPress latest
+- ⚙️ Auto-install with WP-CLI
+- 👤 Preconfigured admin: `test / test`
+- ✍️ 10 author users created automatically
+- 🧹 Easy cleanup with `--delete` option
+- 🐳 Docker-powered, WSL2-friendly
+
+---
+
+## 📦 Requirements
+
+- WSL2 with Docker & Docker Compose installed
+- WP-CLI available inside the WordPress container
+- Bash shell (Linux, macOS, WSL2)
+- Execution permission for the script
+
+---
+
+## 🚀 Usage
+
+### Create a new instance
+
+```bash
+./auto-wp.sh instance_name [port]
+````
+
+**Example:**
+
+```bash
+./auto-wp.sh wp-test-1 8081
+```
+
+This will:
+
+  - Create a folder `wp-test-1`
+  - Start WordPress on `http://localhost:8081`
+  - Install WordPress with admin credentials
+  - Create 10 author users
+
+### Delete an instance
+
+```bash
+./auto-wp.sh --delete instance_name
+```
+
+**Example:**
+
+```bash
+./auto-wp.sh --delete wp-test-1
+```
+
+This will:
+
+  - Stop and remove Docker containers
+  - Delete the instance folder
+
+### Help
+
+```bash
+./auto-wp.sh --help
+```
+
+-----
+
+## 🧠 Tips
+
+  - Run multiple instances on different ports.
+  - Your theme code lives in `wp-content/themes`.
+  - Easily integrate Vite, Tailwind, or custom workflows.
+  - Great for testing plugins, themes, or WP configurations.
+
+-----
+
+## 🛡️ License
+
+This project is licensed under the MIT License.
+
+-----
+
+## 👩‍💻 Author
+
+Built with ❤️ by Gina
+
+-----
+
+## 📣 Contribute
+
+Want to improve the script, add features, or report bugs? Feel free to open issues or submit pull requests. Let’s make WordPress dev faster for everyone.
