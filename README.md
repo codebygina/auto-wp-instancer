@@ -68,6 +68,7 @@ This will:
   - Start WordPress on `http://localhost:8081`
   - Install WordPress with admin credentials
   - Create 10 author users
+  - You will log in as admin at `wp-admin` with user: `test`, pass: `test`
 
 ### Delete a WordPress instance
 
