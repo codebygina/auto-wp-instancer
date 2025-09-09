@@ -33,7 +33,20 @@
 
 ## 🚀 Usage
 
-First, make sure the script is executable:
+**Clone this repo**
+
+First, clone this repository:
+
+```bash
+git clone https://github.com/codebygina/auto-wp-instancer.git
+cd auto-wp-instancer
+````
+
+(Or you can copy `auto-wp.sh` into any folder and run it from there - just make sure Docker and WP-CLI are available)
+
+**Make the script executable**
+
+Then, make sure the script is executable:
 
 ```bash
 chmod +x auto-wp.sh
