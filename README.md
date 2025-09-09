@@ -105,7 +105,7 @@ This will:
 
 ## 👩‍💻 Author
 
-Built with ❤️ by Gina, https://codebygina.com
+© 2025. Built with ❤️ by Gina, https://codebygina.com
 
 -----
 
