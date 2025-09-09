@@ -4,6 +4,8 @@
 
 # 🚀 Auto WordPress Instance Creator
 
+![CI](https://github.com/codebygina/auto-wp-instancer/actions/workflows/test.yml/badge.svg)
+
 **Auto-WP** is a lightweight CLI tool that spins up isolated WordPress environments using Docker inside WSL2. Perfect for developers, theme builders, and plugin testers who want fast, disposable WordPress instances with zero setup hassle.
 
 ---
