@@ -46,8 +46,6 @@ cd auto-wp-instancer
 
 **Make the script executable**
 
-Then, make sure the script is executable:
-
 ```bash
 chmod +x auto-wp.sh
 ````
