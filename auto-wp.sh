@@ -11,7 +11,7 @@ fi
 
 # 🧹 Delete mode
 if [ "$1" == "--delete" ]; then
-  INSTANCE=$2
+  INSTANCE="$2"
   if [ -z "$INSTANCE" ]; then
     echo "⚠️ Usage: ./auto-wp.sh --delete instance_name"
     exit 1
@@ -25,8 +25,8 @@ if [ "$1" == "--delete" ]; then
 fi
 
 # 🚀 Create mode
-INSTANCE=$1
-PORT=${2:-8080}
+INSTANCE="$1"
+PORT="${2:-8080}"
 
 if [ -z "$INSTANCE" ]; then
   echo "⚠️ Usage: ./auto-wp.sh instance_name [port]"
@@ -75,9 +75,9 @@ echo "⏳ Waiting for WordPress to be ready..."
 sleep 20
 
 echo "⚙️ Installing WordPress automatically..."
-docker exec ${INSTANCE}_wp wp core install \
+docker exec "${INSTANCE}_wp" wp core install \
   --url="http://localhost:${PORT}" \
-  --title="${INSTANCE}" \
+  --title="$INSTANCE" \
   --admin_user=test \
   --admin_password=test \
   --admin_email=test@example.com \
@@ -87,7 +87,7 @@ echo "👥 Creating 10 author users..."
 for i in {1..10}; do
   USERNAME="author$i"
   EMAIL="author$i@example.com"
-  docker exec ${INSTANCE}_wp wp user create $USERNAME $EMAIL --role=author
+  docker exec "${INSTANCE}_wp" wp user create "$USERNAME" "$EMAIL" --role=author
 done
 
 echo "✅ Instance '$INSTANCE' is ready at http://localhost:${PORT}"
