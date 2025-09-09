@@ -97,7 +97,7 @@ This will:
 ## 🧠 Tips
 
   - Run multiple instances on different ports.
-  - Your theme code lives in `wp-content/themes`.
+  - Your theme &plugin code lives in `wp-content/themes`, `wp-content/plugins`.
   - Easily integrate Vite, Tailwind, or custom workflows.
   - Great for testing plugins, themes, or WP configurations.
 
