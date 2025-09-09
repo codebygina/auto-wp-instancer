@@ -17,7 +17,17 @@ if [ "$1" == "--delete" ]; then
     exit 1
   fi
   cd "$INSTANCE" || { echo "❌ Folder '$INSTANCE' does not exist."; exit 1; }
-  docker-compose down -v
+  
+  # Try docker-compose first, fall back to docker compose
+  if command -v docker-compose >/dev/null 2>&1; then
+    docker-compose down -v
+  elif docker compose version >/dev/null 2>&1; then
+    docker compose down -v
+  else
+    echo "❌ Neither 'docker-compose' nor 'docker compose' found. Please install Docker Compose."
+    exit 1
+  fi
+  
   cd ..
   rm -rf "$INSTANCE"
   echo "🧹 Instance '$INSTANCE' has been deleted."
@@ -71,7 +81,17 @@ volumes:
   wordpress_data:
 EOF
 
-docker-compose up -d
+# Try docker-compose first, fall back to docker compose
+if command -v docker-compose >/dev/null 2>&1; then
+  COMPOSE_CMD="docker-compose"
+elif docker compose version >/dev/null 2>&1; then
+  COMPOSE_CMD="docker compose"
+else
+  echo "❌ Neither 'docker-compose' nor 'docker compose' found. Please install Docker Compose."
+  exit 1
+fi
+
+$COMPOSE_CMD up -d
 
 echo "🚀 WordPress containers are starting up!"
 echo "📝 Note: If you see a browser notification to open http://localhost:${PORT},"
@@ -89,12 +109,12 @@ echo "⏳ Waiting for WordPress to be ready..."
 sleep 10
 
 echo "⚙️ Installing WordPress automatically..."
-docker run --rm --network ${INSTANCE}_default \
+docker run --rm --network "${INSTANCE}_default" \
   -e WORDPRESS_DB_HOST=db \
   -e WORDPRESS_DB_NAME=wpdb \
   -e WORDPRESS_DB_USER=wpuser \
   -e WORDPRESS_DB_PASSWORD=wppass \
-  -v ${INSTANCE}_wordpress_data:/var/www/html \
+  -v "${INSTANCE}_wordpress_data":/var/www/html \
   wordpress:cli wp core install \
   --url="http://localhost:${PORT}" \
   --title="$INSTANCE" \
@@ -107,12 +127,12 @@ echo "👥 Creating 10 author users..."
 for i in {1..10}; do
   USERNAME="author$i"
   EMAIL="author$i@example.com"
-  docker run --rm --network ${INSTANCE}_default \
+  docker run --rm --network "${INSTANCE}_default" \
     -e WORDPRESS_DB_HOST=db \
     -e WORDPRESS_DB_NAME=wpdb \
     -e WORDPRESS_DB_USER=wpuser \
     -e WORDPRESS_DB_PASSWORD=wppass \
-    -v ${INSTANCE}_wordpress_data:/var/www/html \
+    -v "${INSTANCE}_wordpress_data":/var/www/html \
     wordpress:cli wp user create "$USERNAME" "$EMAIL" --role=author
 done
 
