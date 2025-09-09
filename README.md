@@ -107,6 +107,7 @@ This will:
 ## 👩‍💻 Author
 
 © 2025. Built with ❤️ by Gina, https://codebygina.com
+
 [Buy me a coffee](https://donate.stripe.com/9B6cN539tfBe4C15NqcfK00)
 
 -----
