@@ -136,10 +136,22 @@ for i in {1..10}; do
     wordpress:cli wp user create "$USERNAME" "$EMAIL" --role=author
 done
 
+echo "🔧 Configuring file system permissions (no more FTP prompts)..."
+docker exec "${INSTANCE}_wp" sh -c "echo \"
+// Auto-configured by auto-wp.sh - Fix file permissions for plugin/theme installation
+define( 'FS_METHOD', 'direct' );
+define( 'FS_CHMOD_DIR', (0755 & ~ umask()) );
+define( 'FS_CHMOD_FILE', (0644 & ~ umask()) );
+\" >> /var/www/html/wp-config.php"
+
+echo "🔧 Setting proper file ownership..."
+docker exec "${INSTANCE}_wp" chown -R www-data:www-data /var/www/html/wp-content
+
 echo ""
 echo "🎉 SUCCESS! Your WordPress instance is fully ready!"
 echo "✅ Instance '$INSTANCE' is ready at http://localhost:${PORT}"
 echo "🔑 Admin login: username=test, password=test"
 echo "👥 10 author users have been created (author1@example.com to author10@example.com)"
+echo "🔧 File system configured: Install plugins/themes directly (no FTP needed!)"
 echo ""
 echo "💡 You can now safely open http://localhost:${PORT} in your browser!"
