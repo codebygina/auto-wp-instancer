@@ -52,7 +52,7 @@ Then, make sure the script is executable:
 chmod +x auto-wp.sh
 ````
 
-### Create a new instance
+### Create a new WordPress instance
 
 ```bash
 ./auto-wp.sh instance_name [port]
@@ -71,7 +71,7 @@ This will:
   - Install WordPress with admin credentials
   - Create 10 author users
 
-### Delete an instance
+### Delete a WordPress instance
 
 ```bash
 ./auto-wp.sh --delete instance_name
