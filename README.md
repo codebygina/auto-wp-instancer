@@ -2,11 +2,10 @@
 ![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)
 ![Auto WP](https://img.shields.io/badge/WordPress-Auto%20Instance-green?logo=wordpress)
 
-# 🚀 Auto WordPress Instance Creator
-
 ![CI](https://github.com/codebygina/auto-wp-instancer/actions/workflows/test.yml/badge.svg)
 ![ShellCheck Lint](https://github.com/codebygina/auto-wp-instancer/actions/workflows/lint.yml/badge.svg)
 
+# 🚀 Auto WordPress Instance Creator
 **Auto-WP** is a lightweight CLI tool that spins up isolated WordPress environments using Docker inside WSL2. Perfect for developers, theme builders, and plugin testers who want fast, disposable WordPress instances with zero setup hassle.
 
 ---
