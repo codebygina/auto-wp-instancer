@@ -1,0 +1,11 @@
+# .gitignore
+*.log
+*.pid
+*.env
+docker-compose.override.yml
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+.DS_Store
+Thumbs.db
+node_modules/
