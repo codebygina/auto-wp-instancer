@@ -33,7 +33,7 @@ if [ -z "$INSTANCE" ]; then
   exit 1
 fi
 
-mkdir "$INSTANCE" && cd "$INSTANCE"
+mkdir "$INSTANCE" && cd "$INSTANCE" || exit
 
 cat <<EOF > docker-compose.yml
 version: '3.8'
