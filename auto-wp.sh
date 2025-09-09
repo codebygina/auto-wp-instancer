@@ -64,18 +64,38 @@ services:
       WORDPRESS_DB_PASSWORD: wppass
     volumes:
       - ./wp-content:/var/www/html/wp-content
+      - wordpress_data:/var/www/html
 
 volumes:
   db_data:
+  wordpress_data:
 EOF
 
 docker-compose up -d
 
+echo "🚀 WordPress containers are starting up!"
+echo "📝 Note: If you see a browser notification to open http://localhost:${PORT},"
+echo "   please wait until you see the '✅ Instance ready' message below."
+echo "   Opening too early will show a temporary 'database connection' error."
+echo ""
+
+echo "⏳ Waiting for database to be ready..."
+until docker exec "${INSTANCE}_db" mysqladmin ping -h"localhost" --silent; do
+  echo "Database not ready yet..."
+  sleep 3
+done
+
 echo "⏳ Waiting for WordPress to be ready..."
-sleep 20
+sleep 10
 
 echo "⚙️ Installing WordPress automatically..."
-docker exec "${INSTANCE}_wp" wp core install \
+docker run --rm --network ${INSTANCE}_default \
+  -e WORDPRESS_DB_HOST=db \
+  -e WORDPRESS_DB_NAME=wpdb \
+  -e WORDPRESS_DB_USER=wpuser \
+  -e WORDPRESS_DB_PASSWORD=wppass \
+  -v ${INSTANCE}_wordpress_data:/var/www/html \
+  wordpress:cli wp core install \
   --url="http://localhost:${PORT}" \
   --title="$INSTANCE" \
   --admin_user=test \
@@ -87,7 +107,19 @@ echo "👥 Creating 10 author users..."
 for i in {1..10}; do
   USERNAME="author$i"
   EMAIL="author$i@example.com"
-  docker exec "${INSTANCE}_wp" wp user create "$USERNAME" "$EMAIL" --role=author
+  docker run --rm --network ${INSTANCE}_default \
+    -e WORDPRESS_DB_HOST=db \
+    -e WORDPRESS_DB_NAME=wpdb \
+    -e WORDPRESS_DB_USER=wpuser \
+    -e WORDPRESS_DB_PASSWORD=wppass \
+    -v ${INSTANCE}_wordpress_data:/var/www/html \
+    wordpress:cli wp user create "$USERNAME" "$EMAIL" --role=author
 done
 
+echo ""
+echo "🎉 SUCCESS! Your WordPress instance is fully ready!"
 echo "✅ Instance '$INSTANCE' is ready at http://localhost:${PORT}"
+echo "🔑 Admin login: username=test, password=test"
+echo "👥 10 author users have been created (author1@example.com to author10@example.com)"
+echo ""
+echo "💡 You can now safely open http://localhost:${PORT} in your browser!"
