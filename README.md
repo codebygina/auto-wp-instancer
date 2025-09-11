@@ -1,3 +1,5 @@
+**IMPORTANT: If you want to use LocalWP inside WSL2 instead-> [here's a short guide](https://medium.com/@codebygina/install-localwp-on-ubuntu-wsl2-windows-with-wslg-c2ad19c016f1).**
+
 ![Made with WSL2](https://img.shields.io/badge/Made%20with-WSL2-blue?logo=docker)
 ![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)
 ![Auto WP](https://img.shields.io/badge/WordPress-Auto%20Instance-green?logo=wordpress)
